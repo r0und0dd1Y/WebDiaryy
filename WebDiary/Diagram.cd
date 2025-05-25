@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="WebDiary.Data.Models.Journal" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAEAAAAAAAAIAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Data\Models\Journal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebDiary.Data.Models.Lesson" Collapsed="true">
+    <Position X="2.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAASAAAAEAAAAABAAIAAAAAACEAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Data\Models\Lesson.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebDiary.Data.Models.LessonInfo" Collapsed="true">
+    <Position X="4" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAQAAAEAAAAAAAgAAABAAAAAQAAAAA=</HashCode>
+      <FileName>Data\Models\LessonInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebDiary.Data.Models.Mark" Collapsed="true">
+    <Position X="5.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAEQAAgAAAAAAAEAAAAAAAgAAAYAAAgAAACAAA=</HashCode>
+      <FileName>Data\Models\Mark.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebDiary.Data.Models.Parent" Collapsed="true">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAACAAAAAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Models\Parent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebDiary.Data.Models.Person" Collapsed="true">
+    <Position X="2.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAEAAAAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Models\Person.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebDiary.Data.Models.Schedule" Collapsed="true">
+    <Position X="4" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACCAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Data\Models\Schedule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebDiary.Data.Models.School" Collapsed="true">
+    <Position X="5.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACEgAAAAAAAAQAQAAgAAAAACAQAAAAAAAAA=</HashCode>
+      <FileName>Data\Models\School.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebDiary.Data.Models.SchoolClass" Collapsed="true">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAMAAAAAAkABAEAAACAQAAEAAAAAAQAABAAAAAAA=</HashCode>
+      <FileName>Data\Models\SchoolClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebDiary.Data.Models.SchoolClassStudent" Collapsed="true">
+    <Position X="2.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAQAAAAAAIAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Data\Models\SchoolClassStudent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebDiary.Data.Models.SchoolStudent" Collapsed="true">
+    <Position X="4" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAgAAAAAAAAAAAAAAAAAAAQAAAAAACAAA=</HashCode>
+      <FileName>Data\Models\SchoolStudent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebDiary.Data.Models.SchoolWorker" Collapsed="true">
+    <Position X="5.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIACAEAAAAAAgAAAIAIAAAAAAAAAAAAQQAAAAAAAAAA=</HashCode>
+      <FileName>Data\Models\SchoolWorker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebDiary.Data.Models.Student">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIACAAAAAAAAEAAAAAAAQAAAAgAAACAAAgQAAAAAABA=</HashCode>
+      <FileName>Data\Models\Student.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebDiary.Data.Models.StudentSubject">
+    <Position X="2.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAUAAAAAAAAIAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Data\Models\StudentSubject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebDiary.Data.Models.Subject">
+    <Position X="4" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAGCAAAAAAAgAAAIAAAACAQAAAAAAAAAEAAQAAAAABA=</HashCode>
+      <FileName>Data\Models\Subject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebDiary.Data.Models.UserProfile">
+    <Position X="5.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAEAAAAAAAACAAAAQAAQAAQAAABAAAAAAAAAAAAg=</HashCode>
+      <FileName>Data\Models\UserProfile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

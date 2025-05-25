@@ -1,0 +1,9 @@
+﻿<section>
+    @{
+       <a class="title is-6 mt-0" asp-area="" asp-controller="Student" asp-action="StudentPublicAccount" asp-route-studentId="@Model.Id">
+                @Model.Person.UserProfile.FirstName @Model.Person.UserProfile.MiddleName @Model.Person.UserProfile.LastName
+            </a>
+        
+    }
+
+</section>

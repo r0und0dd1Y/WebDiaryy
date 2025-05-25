@@ -1,0 +1,67 @@
+\doxysection{node\+\_\+modules/jquery Directory Reference}
+\hypertarget{dir_dd90a3fee7ef93e75e6183266fdd3313}{}\label{dir_dd90a3fee7ef93e75e6183266fdd3313}\index{node\_modules/jquery Directory Reference@{node\_modules/jquery Directory Reference}}
+Directory dependency graph for jquery\+:
+% FIG 0
+
+
+\doxysubsection{Detailed Description}
+\begin{quote}
+j\+Query is a fast, small, and feature-\/rich Java\+Script library. \end{quote}
+
+
+For information on how to get started and how to use j\+Query, please see \href{https://api.jquery.com/}{\texttt{ j\+Query\textquotesingle{}s documentation}}. For source files and issues, please visit the \href{https://github.com/jquery/jquery}{\texttt{ j\+Query repo}}.
+
+If upgrading, please see the \href{https://blog.jquery.com/2021/03/02/jquery-3-6-0-released/}{\texttt{ blog post for 3.\+6.\+0}}. This includes notable differences from the previous version and a more readable changelog.\hypertarget{README.md_autotoc_md26}{}\doxysubsection{\texorpdfstring{Including j\+Query}{Including j\+Query}}\label{README.md_autotoc_md26}
+Below are some of the most common ways to include j\+Query.\hypertarget{README.md_autotoc_md27}{}\doxysubsubsection{\texorpdfstring{Browser}{Browser}}\label{README.md_autotoc_md27}
+\hypertarget{README.md_autotoc_md28}{}\doxysubsubsubsection{\texorpdfstring{Script tag}{Script tag}}\label{README.md_autotoc_md28}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{<script\ src="{}https://code.jquery.com/jquery-\/3.6.0.min.js"{}></script>}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md29}{}\doxysubsubsubsection{\texorpdfstring{Babel}{Babel}}\label{README.md_autotoc_md29}
+\href{https://babeljs.io/}{\texttt{ Babel}} is a next generation Java\+Script compiler. One of the features is the ability to use ES6/\+ES2015 modules now, even though browsers do not yet support this feature natively.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ \$\ from\ "{}jquery"{};}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md30}{}\doxysubsubsubsection{\texorpdfstring{Browserify/\+Webpack}{Browserify/\+Webpack}}\label{README.md_autotoc_md30}
+There are several ways to use \href{http://browserify.org/}{\texttt{ Browserify}} and \href{https://webpack.github.io/}{\texttt{ Webpack}}. For more information on using these tools, please refer to the corresponding project\textquotesingle{}s documentation. In the script, including j\+Query will usually look like this...
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ \$\ =\ require(\ "{}jquery"{}\ );}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md31}{}\doxysubsubsubsection{\texorpdfstring{AMD (Asynchronous Module Definition)}{AMD (Asynchronous Module Definition)}}\label{README.md_autotoc_md31}
+AMD is a module format built for the browser. For more information, we recommend \href{https://requirejs.org/docs/whyamd.html}{\texttt{ require.\+js\textquotesingle{} documentation}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{define(\ [\ "{}jquery"{}\ ],\ function(\ \$\ )\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}\ );}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md32}{}\doxysubsubsection{\texorpdfstring{Node}{Node}}\label{README.md_autotoc_md32}
+To include j\+Query in \href{https://nodejs.org/}{\texttt{ Node}}, first install with npm.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install\ jquery}
+
+\end{DoxyCode}
+
+
+For j\+Query to work in Node, a window with a document is required. Since no such window exists natively in Node, one can be mocked by tools such as \href{https://github.com/jsdom/jsdom}{\texttt{ jsdom}}. This can be useful for testing purposes.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ \{\ JSDOM\ \}\ =\ require(\ "{}jsdom"{}\ );}
+\DoxyCodeLine{const\ \{\ window\ \}\ =\ new\ JSDOM(\ "{}"{}\ );}
+\DoxyCodeLine{const\ \$\ =\ require(\ "{}jquery"{}\ )(\ window\ );}
+
+\end{DoxyCode}
+ 

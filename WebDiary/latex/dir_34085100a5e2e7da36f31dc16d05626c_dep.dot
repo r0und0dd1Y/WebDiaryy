@@ -1,0 +1,12 @@
+digraph "obj/Debug/netcoreapp2.1/Razor/Views/School"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_33ca1d150cd2b3aa8f661d8627b02d2e {
+    graph [ bgcolor="#edf0f7", pencolor="grey50", label="Views", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_33ca1d150cd2b3aa8f661d8627b02d2e.html",tooltip=""]
+  dir_34085100a5e2e7da36f31dc16d05626c [label="School", fillcolor="#edf0f7", color="grey25", style="filled,bold", URL="dir_34085100a5e2e7da36f31dc16d05626c.html",tooltip=""];
+  }
+}

@@ -1,0 +1,8 @@
+﻿<div class="card">
+    <div class="card-content m-0 pb-1">
+        <p class="title is-5">@Model.Name</p>
+        <p class="subtitle is-6 is-uppercase is-family-code has-text-grey mt-1">Type:</p>
+        <p class="title is-6">@Model.Type</p>
+        <a class="button mb-5" asp-area="" asp-controller="School" asp-action="GetSchoolById" asp-route-schoolId="@Model.Id">More...</a>
+    </div>
+</div>

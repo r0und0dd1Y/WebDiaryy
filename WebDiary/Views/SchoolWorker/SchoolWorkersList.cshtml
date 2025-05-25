@@ -1,0 +1,182 @@
+﻿@model WebDiary.Data.ViewModels.ListSchoolWorkerViewModel
+@{
+    Layout = "_Layout";
+}
+@{
+    ViewData["Title"] = "View";
+}
+
+<nav class="panel">
+    @{
+        if (Model.School != null)
+        {
+            <p class="title is-5 panel-heading  mb-0">@Model.School.Name <span class="has-text-weight-light is-uppercase is-family-code has-text-grey mt-1">  / Staff </span></p>
+        }
+        else
+        {
+            <p class="title is-5 panel-heading  mb-0"><span class="has-text-weight-light is-uppercase is-family-code has-text-grey mt-1">All School Workers </span></p>
+        }
+        if (Model.GetSchoolWorkers.Count() == 0)
+        {
+            <div class="panel-body ">
+                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold p-6" style="white-space:nowrap;">
+                    No staff yet.
+                </p>
+            </div>
+        }
+        else
+        {
+            <div class="panel-block" style="width:100%">
+                @*<div class="columns" style="width:100%">
+                    <div class="column">
+                        <p class="control has-icons-left">
+                            <input class="input is-info" type="text" placeholder="Search">
+                            <span class="icon is-left">
+                                <i class="fas fa-search" aria-hidden="true"></i>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="column is-one-quarter">
+                        <p class="">
+                            <a asp-action="Add" class="button is-info" style="width:100%">Add Worker</a>
+                        </p>
+                    </div>
+                </div>*@
+
+            </div>
+            <div class="panel-body ">
+                <table class="table is-hoverable is-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            @*<th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">
+                                    Image
+                                </p>
+                            </th>*@
+                            <th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">
+                                    Name
+                                </p>
+                            </th>
+                            <th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">
+                                    Role
+                                </p>
+                            </th>
+                            <th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">
+                                    Class Teacher
+                                </p>
+                            </th>
+                            <th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">
+                                    Subjects
+                                </p>
+                            </th>
+                            <th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold">
+                                    Birth Date
+                                </p>
+                            </th>
+                            @{ if (User.IsInRole("Director") || User.IsInRole("Manager") || User.IsInRole("Teacher"))
+                                {
+                                    
+                                    <th>
+                                        <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="width:100px">
+                                            Email
+                                        </p>
+                                    </th>
+
+                                }
+                            }
+                            <th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">
+
+                                </p>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.GetSchoolWorkers)
+                        {
+                        <tr>
+                            @*<td>
+                                <figure class="image" style="width:50px; height:50px; border-radius:50%">
+                                    <img src="@item.Person.UserProfile.Image" style="border-radius:50%" class="" alt="Placeholder image">
+                                </figure>
+                            </td>*@
+                            <td style="white-space:nowrap; font-size:smaller">
+                                <a asp-area="" asp-controller="SchoolWorker" asp-action="SchoolWorkerPublicAccount" asp-route-schoolWorkerId="@item.Id">
+                                    @Html.DisplayFor(modelItem => item.Person.UserProfile.LastName) @Html.DisplayFor(modelItem => item.Person.UserProfile.MiddleName) @Html.DisplayFor(modelItem => item.Person.UserProfile.FirstName)
+                                </a>
+                            </td>
+                            <td style="font-size:smaller">
+                                <span>
+                                    @Html.DisplayFor(modelItem => item.RoleDescription)
+                                </span>
+                            </td>
+                            <td style="font-size:smaller">
+                                @{
+                                    if (item.IsClassTeacher)
+                                    {
+                                        <span>
+                                            Class Teacher in
+                                            <a asp-area="" asp-controller="SchoolClass" asp-action="SchoolClass" asp-route-id="@item.Class.Id">
+                                                @Html.DisplayFor(modelItem => item.Class.Name)
+                                            </a>
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span>-</span>
+                                    }
+                                }
+
+                            </td>
+                            <td style="font-size:smaller">
+                                @{
+                                    foreach (var sc in item.Subjects)
+                                    {
+
+                                        <a asp-area="" asp-controller="Subject" asp-action="GetSubject" asp-route-subjectId="@sc.Id"> @Html.DisplayFor(modelItem => sc.Name) in @Html.DisplayFor(modelItem => sc.SchoolClass.Name)</a>
+
+
+                                    }
+
+
+                                }
+
+
+                            </td>
+                            <td style="font-size:smaller">
+                                @Html.DisplayFor(modelItem => item.Person.UserProfile.BirthDate)
+                            </td>
+                            @{ if (User.IsInRole("Director") || User.IsInRole("Manager") || User.IsInRole("Teacher"))
+                                {
+                                    
+                                    <td style="font-size:smaller;width:100px">
+                                        @Html.DisplayFor(modelItem => item.Person.UserProfile.User.Email)
+                                    </td>
+                                }
+                            }
+                            <td>
+                                <a class="button is-small is-info is-light mb-1" asp-area="" asp-controller="SchoolWorker" asp-action="SchoolWorkerPublicAccount" asp-route-schoolWorkerId="@item.Id">Details...</a>
+                                @{ if (User.IsInRole("Director") || User.IsInRole("Manager"))
+                                    {
+                                        <a class="button is-small is-info is-light mb-1" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                        <a class="button is-small is-info is-light mb-1" asp-action="Remove" asp-route-id="@item.Id">Remove</a>
+                                    }
+                                }
+
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+
+    }
+
+
+</nav>

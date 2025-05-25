@@ -1,0 +1,81 @@
+﻿@{
+    Layout = "_Layout";
+}
+@{
+    ViewData["Title"] = "Class";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Class</title>
+</head>
+<body>
+    <div class="columns">
+        <div class="column">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        @Model.SchoolClass.Name
+                    </p>
+                </header>
+                <div class="card-content m-0 pb-1">
+                    @{
+                        if (Model.SchoolClass.IsActive)
+                        {
+                            <p class="subtitle is-5 is-uppercase is-family-code has-text-success is-italic">Active</p>
+                            <p class="subtitle is-6 is-uppercase is-family-code has-text-grey">Expiration Date:</p>
+                            <p class="title is-6">@Model.SchoolClass.FinalDate.ToShortDateString()</p>
+                        }
+                        else
+                        {
+                            <p class="subtitle is-5 is-uppercase is-family-code has-text-danger">Disabled</p>
+                            <p class="subtitle is-6 is-uppercase is-family-code has-text-grey">
+                                Was active from
+                                <span class="has-text-link">@Model.SchoolClass.CreateDate.ToShortDateString()</span> to
+                                <span class="has-text-link">@Model.SchoolClass.FinalDate.ToShortDateString()</span>
+                            </p>
+                        }
+                    }
+                    <p class="subtitle is-6 is-uppercase is-family-code has-text-grey">School:</p>
+                    <p class="title is-6"><a asp-area="" asp-controller="School" asp-action="GetSchoolById" asp-route-schoolId="@Model.SchoolClass.School.Id">@Model.SchoolClass.School.Name</a></p>
+                    @{
+                        if (Model.SchoolClass.Teacher != null)
+                        {
+                            if (Model.SchoolClass.Teacher.Person != null)
+                            {
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-grey">Class Teacher:</p>
+                                <p class="title is-6"><a asp-area="" asp-controller="SchoolWorker" asp-action="SchoolWorkerPublicAccount" asp-route-schoolWorkerId="@Model.SchoolClass.Teacher.Id">@Model.SchoolClass.Teacher.Person.UserProfile.FirstName @Model.SchoolClass.Teacher.Person.UserProfile.LastName</a></p>
+                            }
+                        }
+                    }
+
+
+
+
+                    <div class="columns">
+                        <div class="column has-text-centered">
+                            <a class="subtitle is-5 is-family-code has-text-link m-0 has-text-weight-bold pb-1" asp-area="" asp-controller="Student" asp-action="GetStudents" asp-route-classId="@Model.SchoolClass.Id">Students</a>
+                        </div>
+                        <div class="column has-text-centered">
+                            <a asp-area="" asp-controller="Subject" asp-action="GetSubjectsList" asp-route-schoolClassId="@Model.SchoolClass.Id" class="subtitle is-5 is-family-code has-text-link m-0 has-text-weight-bold pb-1 ">Subjects</a>
+                        </div>
+                        <div class="column has-text-centered">
+                            <a asp-area="" asp-controller="Schedule" asp-action="GetScheduleSchoolClass" asp-route-schoolClassId="@Model.SchoolClass.Id" class="subtitle is-5 is-family-code has-text-link m-0 has-text-weight-bold pb-1">Schedule</a>
+                        </div>
+                    </div><footer class="card-footer mb-0 pb-0">
+                        @if (User.IsInRole("Director") || User.IsInRole("Manager") || User.IsInRole("Teacher"))
+                        {
+
+                            <a href="#" class="card-footer-item">Edit Class</a>
+                        }
+                    </footer>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
+

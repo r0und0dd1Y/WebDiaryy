@@ -1,0 +1,18 @@
+﻿<div class="card p-0">
+    <div class="card-content m-0 p-4">
+        <p class="title is-5 pt-0 mt-0"><a asp-area="" asp-controller="SchoolClass" asp-action="SchoolClass" asp-route-id="@Model.Id">@Model.Name</a>
+        <span class="subtitle is-6 is-uppercase is-family-code has-text-grey mt-1"> /  @Model.School.Name </span></p>
+        
+        @{
+            if (Model.Teacher != null)
+            {
+                if (Model.Teacher.Person != null)
+                {
+                    
+                    <p class="subtitle is-6 is-uppercase is-family-code has-text-grey mt-1">Class Teacher:</p>
+                    <p class="title is-6"><a asp-area="" asp-controller="SchoolWorker" asp-action="SchoolWorkerPublicAccount" asp-route-schoolWorkerId="@Model.Teacher.Id">@Model.Teacher.Person.UserProfile.FirstName @Model.Teacher.Person.UserProfile.LastName</a></p>
+                }
+            }
+        }
+    </div>
+</div>

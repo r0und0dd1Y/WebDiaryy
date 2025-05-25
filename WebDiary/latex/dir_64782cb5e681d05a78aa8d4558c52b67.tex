@@ -1,0 +1,103 @@
+\doxysection{node\+\_\+modules/systemjs Directory Reference}
+\hypertarget{dir_64782cb5e681d05a78aa8d4558c52b67}{}\label{dir_64782cb5e681d05a78aa8d4558c52b67}\index{node\_modules/systemjs Directory Reference@{node\_modules/systemjs Directory Reference}}
+Directory dependency graph for systemjs\+:
+% FIG 0
+
+
+\doxysubsection{Detailed Description}
+\href{https://travis-ci.org/systemjs/systemjs}{\texttt{ }} \href{https://gitter.im/systemjs/systemjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge}{\texttt{ }} \href{https://canopytax.github.io/post/systemjs-sponsorship/?utm_source=systemjs}{\texttt{ }}
+
+Configurable module loader enabling dynamic ES module workflows in browsers and Node\+JS.
+
+{\itshape \href{https://github.com/systemjs/systemjs/tree/2.0}{\texttt{ Try out the System\+JS 2.\+0 alpha release}}}
+
+{\itshape System\+JS is \href{https://canopytax.github.io/post/systemjs-sponsorship/?utm_source=systemjs}{\texttt{ currently sponsored by Canopy Tax}}.}
+
+
+\begin{DoxyItemize}
+\item Loads any module format when running the \texorpdfstring{$\sim$}{\string~}15\+KB development build.
+\item Loads ES modules compiled into the {\ttfamily System.\+register} module format for production with \href{https://github.com/ModuleLoader/es6-module-loader/blob/v0.17.0/docs/circular-references-bindings.md}{\texttt{ exact circular reference and binding support}}
+\item Supports Require\+JS-\/style \href{docs/getting-started.md\#map-config}{\texttt{ map}}, \href{https://github.com/systemjs/systemjs/blob/master/docs/config-api.md\#paths}{\texttt{ paths}}, and \href{docs/production-workflows.md\#bundle-extension}{\texttt{ bundles}} configuration.
+\end{DoxyItemize}
+
+Built with the \href{https://github.com/ModuleLoader/es-module-loader}{\texttt{ ES Module Loader project}}, which is based on principles and APIs from the What\+WG Loader specification, modules in HTML and Node\+JS.
+
+For discussion, join the \href{https://gitter.im/systemjs/systemjs}{\texttt{ Gitter Room}}.\hypertarget{README.md_autotoc_md49}{}\doxysubsection{\texorpdfstring{Documentation}{Documentation}}\label{README.md_autotoc_md49}
+
+\begin{DoxyItemize}
+\item Getting Started
+\item Module Formats
+\item Production Workflows
+\item Configuration API
+\item System API
+\item Plugins
+\item Creating Plugins
+\item Production Build and Resolution
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md50}{}\doxysubsection{\texorpdfstring{Basic Use}{Basic Use}}\label{README.md_autotoc_md50}
+\hypertarget{README.md_autotoc_md51}{}\doxysubsubsection{\texorpdfstring{Browser Development}{Browser Development}}\label{README.md_autotoc_md51}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{<script\ src="{}systemjs/dist/system.js"{}></script>}
+\DoxyCodeLine{<script>}
+\DoxyCodeLine{\ \ SystemJS.import('/js/main.js');}
+\DoxyCodeLine{</script>}
+
+\end{DoxyCode}
+
+
+The above will support loading all module formats.
+
+{\bfseries{To load ES6 code with in-\/browser transpilation, one of the following transpiler plugins must be configured}}\+:
+
+
+\begin{DoxyItemize}
+\item \href{https://github.com/systemjs/plugin-babel}{\texttt{ Babel}}
+\item \href{https://github.com/frankwallis/plugin-typescript}{\texttt{ Type\+Script}}
+\item \href{http://github.com/systemjs/plugin-traceur}{\texttt{ Traceur}}
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md52}{}\doxysubsubsection{\texorpdfstring{Browser Production}{Browser Production}}\label{README.md_autotoc_md52}
+When all modules are available as either {\ttfamily system}, {\ttfamily amd} or global module formats, and no package configurations or plugins are needed, a production-\/only loader can be used\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{<script\ src="{}systemjs/dist/system-\/production.js"{}></script>}
+\DoxyCodeLine{<script>}
+\DoxyCodeLine{\ \ SystemJS.import('/js/main.js');}
+\DoxyCodeLine{</script>}
+
+\end{DoxyCode}
+
+
+Configuration support in the production loader includes base\+URL, paths, map, dep\+Cache and wasm.\hypertarget{README.md_autotoc_md53}{}\doxysubsubsection{\texorpdfstring{Node\+JS}{Node\+JS}}\label{README.md_autotoc_md53}
+To load modules in Node\+JS, install System\+JS with\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install\ systemjs}
+
+\end{DoxyCode}
+
+
+If transpiling ES modules, install the transpiler plugin following the instructions from the transpiler project page.
+
+We can then load modules equivalently in Node\+JS as we do in the browser\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ SystemJS\ =\ require('systemjs');}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ loads\ './app.js'\ from\ the\ current\ directory}
+\DoxyCodeLine{SystemJS.import('./app.js').then(function\ (m)\ \{}
+\DoxyCodeLine{\ \ console.log(m);}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+
+
+To import a module with the Node\+JS module resolution, import with `import module\+Name from '@node/module-\/name\textquotesingle{}\`{}.\hypertarget{README.md_autotoc_md54}{}\doxysubsubsubsection{\texorpdfstring{Running the tests}{Running the tests}}\label{README.md_autotoc_md54}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ run\ build\ \&\&\ npm\ run\ test}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md55}{}\doxysubsection{\texorpdfstring{License}{License}}\label{README.md_autotoc_md55}
+MIT 

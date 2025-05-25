@@ -1,0 +1,52 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @{
+        if (Model.School != null)
+        {
+            <title>@Model.School.Name | Classes</title>
+        }
+        else if (Model.Student != null)
+        {
+            <title>@Model.Student.Person.UserProfile.FirstName @Model.Student.Person.UserProfile.LastName | Classes</title>
+
+        }
+
+    }
+</head>
+<body>
+    <div class="columns">
+        <div class="column">
+            <div class="panel">
+                @{
+                    if (Model.School != null)
+                    {
+                        <p class="title is-5 panel-heading  mb-0">@Model.School.Name <span class="has-text-weight-light is-uppercase is-family-code has-text-grey mt-1">  / Classes </span></p>
+                    }
+                    else if (Model.Student != null)
+                    {
+                        <p class="title is-5 panel-heading  mb-0">@Model.Student.Person.UserProfile.FirstName @Model.Student.Person.UserProfile.LastName<span class="has-text-weight-light is-uppercase is-family-code has-text-grey mt-1">  / Classes </span></p>
+
+                    }
+
+                }
+            </div>
+            @{
+
+                foreach (SchoolClass schoolClass in Model.SchoolClasses)
+                {
+                    @await Html.PartialAsync("_SchoolClassCardAdvanced", schoolClass);
+                }
+
+            }
+        </div>
+
+    </div>
+</body>
+</html>

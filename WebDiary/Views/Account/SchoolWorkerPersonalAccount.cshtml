@@ -1,0 +1,159 @@
+﻿@{
+    Layout = "_Layout";
+}
+@{
+    ViewData["Title"] = "SchoolWorkerPersonalAccount";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>School Worker Personal Account</title>
+</head>
+<body>
+    <div class="columns">
+        <div class="column is-one-third">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        @Model.SchoolWorker.Person.UserProfile.FirstName @Model.SchoolWorker.Person.UserProfile.MiddleName @Model.SchoolWorker.Person.UserProfile.LastName
+                    </p>
+                </header>
+                <div class="card-image pt-3 pl-3 pr-3">
+                    <figure class="image ">
+                        <img src="@Model.SchoolWorker.Person.UserProfile.Image" class="" alt="Placeholder image">
+                    </figure>
+                </div>
+                <div class="card-content m-0 pb-1">
+                    <p class="subtitle is-5 is-family-code has-text-link m-0 has-text-weight-bold pb-1">@Model.SchoolWorker.RoleDescription</p>
+
+                    <p class="subtitle is-6 is-uppercase is-family-code has-text-grey">Email:</p>
+                    <p class="title is-6">@Model.GetUserInfo.Email</p>
+                    <p class="subtitle is-6 is-uppercase is-family-code has-text-grey">Phone Number:</p>
+                    <p class="title is-6">@Model.SchoolWorker.Person.UserProfile.User.PhoneNumber</p>
+                    <p class="subtitle is-6 is-uppercase is-family-code has-text-grey">Gender:</p>
+                    <p class="title is-6">@Model.SchoolWorker.Person.UserProfile.Gender</p>
+                    <p class="subtitle is-6 is-uppercase is-family-code has-text-grey">Birth Date:</p>
+                    <p class="title is-6">@Model.SchoolWorker.Person.UserProfile.BirthDate.ToShortDateString()</p>
+                    <footer class="card-footer mb-0 pb-0">
+                        <a href="#" class="card-footer-item">Edit profile</a>
+                    </footer>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card">
+                <div class="card-content">
+                    @{
+                        if (Model.SchoolWorker.IsClassTeacher)
+                        {
+                            <section>
+                                <p class="subtitle is-5 is-uppercase is-family-code has-text-grey pb-0 mb-0 mb-2">Class Teacher in <a> @Model.SchoolWorker.Class.Name</a></p>
+                            </section>
+                        }
+                    }
+                    <section>
+                        <p class="subtitle is-6 is-uppercase is-family-code has-text-grey pb-0 mb-0">School:</p>
+                        <section><a class="title is-6 mt-0">@Model.GetSchool.Name</a></section>
+                    </section>
+
+
+                    <section>
+                        <p class="subtitle is-6 is-uppercase is-family-code has-text-grey pb-0 mb-0 mt-2">Subjects:</p>
+                        @{
+                            foreach (Subject subject in Model.SchoolWorker.Subjects)
+                            {
+                                @await Html.PartialAsync("_SubjectCard", subject);
+                            }
+                        }
+                    </section>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+@*@{
+        Layout = "_Layout";
+    }
+    @{
+        ViewData["Title"] = "SchoolWorkerPersonalAccount";
+    }
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>SchoolWorker Personal Account</title>
+    </head>
+    <body>
+        <div class="container">
+            <h2>@Model.SchoolWorker.Person.UserProfile.FirstName @Model.SchoolWorker.Person.UserProfile.MiddleName @Model.SchoolWorker.Person.UserProfile.LastName</h2>
+            <p class="card-text">@Model.SchoolWorker.RoleDescription </p>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <img style="height:auto; width:200px; padding-top:7px;" src="https://pmdoc.ru/wp-content/uploads/default-avatar.png" />
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="row" style="margin-bottom:5px">
+                        <div class="card w-100">
+                            <div class="card-body">
+                                <p class="card-text">Email: @Model.GetUserInfo.Email </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom:5px">
+                        <div class="card w-100">
+                            <div class="card-body">
+                                <p class="card-text">Phone Number: @Model.SchoolWorker.Person.UserProfile.User.PhoneNumber </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom:5px">
+                        <div class="card w-100">
+                            <div class="card-body">
+                                <h6 class="card-title">Schools</h6>
+                                @{
+                                    foreach (School school in Model.Schools)
+                                    {
+                                        @await Html.PartialAsync("_SchoolCard", school);
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom:5px">
+                    </div>
+                    <div class="row" style="margin-bottom:5px">
+                        <div class="card w-100">
+                            <div class="card-body">
+                                <p class="card-text">Gender: @Model.SchoolWorker.Person.UserProfile.Gender </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom:5px">
+                        <div class="card w-100">
+                            <div class="card-body">
+                                <h6 class="card-title">Subjects</h6>
+                                @{
+                                    foreach (Subject subject in Model.SchoolWorker.Subjects)
+                                    {
+                                        @await Html.PartialAsync("_SubjectCard", subject);
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>*@

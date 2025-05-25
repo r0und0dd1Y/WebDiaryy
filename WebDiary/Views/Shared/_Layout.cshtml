@@ -1,0 +1,318 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"] - WebDiary</title>
+    @*<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">*@
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+    <link rel="stylesheet" href="/vendors/formvalidation/dist/css/formValidation.min.css">
+    @*<environment include="Development">
+            <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+            <link rel="stylesheet" href="~/css/site.css" />
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+
+        </environment>
+        <environment exclude="Development">
+            <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+                   asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+                   asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+            <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        </environment>*@
+</head>
+<body style="height:100%">
+    <section class="section">
+
+        <nav class="navbar is-dark has-shadow is-fixed-top pl-3 pr-3 pt-2 pb-2">
+            <div class="navbar-brand">
+                <a class="navbar-item" asp-area="" asp-controller="Home" asp-action="Index">
+                    WebDiary
+                </a>
+
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+
+            <div id="navbarMain" class="navbar-menu">
+                <div class="navbar-start">
+                    @*<a class="navbar-item">
+                        About
+                    </a>
+                    <a class="navbar-item">
+                        Contact
+                    </a>*@
+
+
+
+                </div>
+
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        @{
+                            if (User.Identity.IsAuthenticated)
+                            {
+                                <form class="form-inline " asp-controller="Account" asp-action="Logout">
+                                    <button class="button is-info mr-3" action="submit">
+                                        <strong>Log Out</strong>
+                                    </button>
+                                </form>
+                                if (User.IsInRole("Student"))
+                                {
+                                    <a class="button is-light is-outlined" asp-controller="Account" asp-action="StudentPersonalAccount">
+                                        @Context.User.Identity.Name
+                                    </a>
+                                }
+                                else if (User.IsInRole("Parent"))
+                                {
+                                    <a class="button is-light is-outlined" asp-controller="Account" asp-action="ParentPersonalAccount">
+                                        @Context.User.Identity.Name
+                                    </a>
+                                }
+                                else if (User.IsInRole("Teacher") || User.IsInRole("Director") || User.IsInRole("SchoolWorker") || User.IsInRole("Manager"))
+                                {
+                                    <a class="button is-light is-outlined" asp-controller="Account" asp-action="SchoolWorkerPersonalAccount">
+                                        @Context.User.Identity.Name
+                                    </a>
+                                }
+                            }
+                            else
+                            {
+
+                                <div class="buttons">
+                                    <a class="button is-info" asp-controller="Account" asp-action="Login">
+                                        <strong>Log In</strong>
+                                    </a>
+                                    <a class="button is-light is-outlined">
+                                        Don't have an account?
+                                    </a>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            @*<img src="https://cdn.pixabay.com/photo/2015/12/23/01/14/edit-1105049_1280.png" class="rounded" style="width:40px; height:40px; margin-right:10px">*@
+            @*<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebDiary</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                        </li>
+                    </ul>
+
+                    @{
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            @if (User.IsInRole("Student"))
+                            {
+                                <form class="form-inline my-2 my-lg-0" asp-controller="Account" asp-action="Logout">
+                                    <ul class="navbar-nav flex-grow-1">
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="StudentPersonalAccount">@Context.User.Identity.Name</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <button class="btn btn-info my-2 my-sm-0" type="submit">Logout</button>
+                                        </li>
+                                    </ul>
+
+                                </form>
+                            }
+                            else if (User.IsInRole("Parent"))
+                            {
+                                <form class="form-inline my-2 my-lg-0" asp-controller="Account" asp-action="Logout">
+                                    <ul class="navbar-nav flex-grow-1">
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="ParentPersonalAccount">@Context.User.Identity.Name</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <button class="btn btn-info my-2 my-sm-0" type="submit">Logout</button>
+                                        </li>
+                                    </ul>
+
+                                </form>
+                            }
+                            else if (User.IsInRole("Teacher") || User.IsInRole("Director") || User.IsInRole("SchoolWorker") || User.IsInRole("Manager"))
+                            {
+                                <form class="form-inline my-2 my-lg-0" asp-controller="Account" asp-action="Logout">
+                                    <ul class="navbar-nav flex-grow-1">
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="SchoolWorkerPersonalAccount">@Context.User.Identity.Name</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <button class="btn btn-info my-2 my-sm-0" type="submit">Logout</button>
+                                        </li>
+                                    </ul>
+
+                                </form>
+                            }
+                            else
+                            {
+                                <form class="form-inline my-2 my-lg-0" asp-controller="Account" asp-action="Logout">
+                                    <ul class="navbar-nav flex-grow-1">
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="PersonalAccount">@Context.User.Identity.Name</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <button class="btn btn-info my-2 my-sm-0" type="submit">Logout</button>
+                                        </li>
+                                    </ul>
+
+                                </form>
+
+                            }}
+                        else
+                        {
+                            <a class="nav-link" asp-controller="Account" asp-action="Login">
+                                Login
+                            </a>
+                            <a asp-controller="Account" asp-action="PersonalAccount"><img src="https://cdn.iconscout.com/icon/free/png-256/user-1648810-1401302.png" class="rounded" style="width:40px; height:40px; margin-right:0px"></a>
+                        }
+                    }
+
+
+
+
+
+                    <a class="nav-link text-dark" asp-area="" asp-controller="ShopCart" asp-action="Index">
+                        <i class="fas fa-shopping-cart"></i>
+                    </a>
+
+                </div>*@
+        </nav>
+    </section>
+
+
+    <div class="container body-content ml-5 " >
+
+        @{ if (User.Identity.IsAuthenticated)
+            { <div class="columns ">
+                    @if (User.IsInRole("Student"))
+                    {<div class="column is-one-quarter ">
+                        <aside class="menu ml-0 ">
+                            <p class="menu-label">
+                                School
+                            </p>
+                            <ul class="menu-list">
+                                <li><a asp-area="" asp-controller="School" asp-action="GetSchoolsStudent">Schools</a></li>
+                                <li><a asp-area="" asp-controller="SchoolClass" asp-action="SchoolClassesListStudent">Classes</a></li>
+                                <li><a asp-area="" asp-controller="Schedule" asp-action="RedirectStudentSchedule">Schedule</a></li>
+                                <li><a asp-area="" asp-controller="Journal" asp-action="RedirectStudentJournal">Journal</a></li>
+                            </ul>
+                            <p class="menu-label">
+                                Account
+                            </p>
+                            <ul class="menu-list">
+                                <li><a asp-area="" asp-controller="Account" asp-action="PersonalAccount">Personal account</a></li>
+                            </ul>
+                        </aside>
+                    </div>
+                    }
+                    else if (User.IsInRole("Parent"))
+                    {<div class="column is-one-quarter">
+                        <aside class="menu ml-0 ">
+                            <p class="menu-label">
+                                School
+                            </p>
+                            <ul class="menu-list">
+                                <li><a>Kids</a></li>
+                                <li><a>School</a></li>
+                                <li><a>Class</a></li>
+                                <li><a>Schedule</a></li>
+                                <li><a>Journal</a></li>
+                            </ul>
+                            <p class="menu-label">
+                                Account
+                            </p>
+                            <ul class="menu-list">
+                                <li><a asp-area="" asp-controller="Account" asp-action="PersonalAccount">Personal account</a></li>
+                            </ul>
+                        </aside>
+                    </div>
+                    }
+                    else if (User.IsInRole("Director") || User.IsInRole("Manager"))
+                    {<div class="column is-one-quarter">
+                        <aside class="menu ml-0 ">
+                            <p class="menu-label">
+                                School
+                            </p>
+                            <ul class="menu-list">
+                                <li><a asp-area="" asp-controller="School" asp-action="GetSchoolSchoolWorker">School</a></li>
+                                <li><a asp-area="" asp-controller="Student" asp-action="GetStudentsSchoolWorker">Students</a></li>
+                                <li><a asp-area="" asp-controller="SchoolClass" asp-action="SchoolClassesListSchoolWorker">Classes</a></li>
+                                <li><a asp-area="" asp-controller="SchoolWorker" asp-action="GetSchoolWorkersSchoolWorker" >Workers</a></li>
+                                <li><a asp-area="" asp-controller="Schedule" asp-action="RedirectSchoolWorkerSchedule">Teacher Schedule</a></li>
+                                <li><a asp-area="" asp-controller="Journal" asp-action="RedirectTeacherJournal">Journal</a></li>
+                            </ul>
+                            <p class="menu-label">
+                                Account
+                            </p>
+                            <ul class="menu-list">
+                                <li><a asp-area="" asp-controller="Account" asp-action="PersonalAccount">Personal account</a></li>
+                            </ul>
+                        </aside>
+                    </div>
+                    }
+                    else if (User.IsInRole("Teacher"))
+                    {<div class="column is-one-quarter">
+                        <aside class="menu ml-0 ">
+                            <p class="menu-label">
+                                School
+                            </p>
+                            <ul class="menu-list">
+                                <li><a asp-area="" asp-controller="School" asp-action="GetSchoolSchoolWorker">School</a></li>
+                                <li><a asp-area="" asp-controller="SchoolClass" asp-action="SchoolClassTeacherSchoolWorker">Class</a></li>
+                                <li><a asp-area="" asp-controller="Subject" asp-action="RedirectSchoolWorkerSubjects">Subjects</a></li>
+                                <li><a asp-area="" asp-controller="SchoolWorker" asp-action="GetSchoolWorkersSchoolWorker">Teachers</a></li>
+                                <li><a asp-area="" asp-controller="Schedule" asp-action="RedirectSchoolWorkerSchedule">Teacher Schedule</a></li>
+                                <li><a asp-area="" asp-controller="Journal" asp-action="RedirectTeacherJournal">Journal</a></li>
+                            </ul>
+                            <p class="menu-label">
+                                Account
+                            </p>
+                            <ul class="menu-list">
+                                <li><a asp-area="" asp-controller="Account" asp-action="PersonalAccount">Personal account</a></li>
+                            </ul>
+                        </aside>
+                    </div>
+                    }
+                    <div class="column is-justify-content-center">
+                        @RenderBody()
+
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="container is-align-content-center">
+                    @RenderBody()
+                </div>
+            }
+        }
+
+
+
+        <hr />
+        <footer>
+            <p>&copy; WebDiary | 2025</p>
+        </footer>
+    </div>
+    <script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.0/dist/bootstrap-validate.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
+
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

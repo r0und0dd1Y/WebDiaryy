@@ -1,0 +1,107 @@
+﻿@{
+    Layout = "_Layout";
+}
+@{
+    ViewData["Title"] = "Student | School";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>User | School</title>
+</head>
+<body>
+    <div class="columns">
+        <div class="column">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        @Model.GetSchool.Name
+                    </p>
+                </header>
+                <div class="card-content m-0 pb-1">
+                    <p class="subtitle is-6 is-uppercase is-family-code has-text-grey">Type:</p>
+                    <p class="title is-6">@Model.GetSchool.Type</p>
+                    <p class="subtitle is-6 is-uppercase is-family-code has-text-grey">Description:</p>
+                    <p class="title is-6">@Model.GetSchool.Description</p>
+                    <p class="subtitle is-6 is-uppercase is-family-code has-text-grey">Director:</p>
+                    @{
+                        if (Model.Director.Person.UserProfile.User.Email == Context.User.Identity.Name)
+                        {
+                            <p class="title is-6"><a asp-area="" asp-controller="Account" asp-action="SchoolWorkerPersonalAccount" >@Model.Director.Person.UserProfile.FirstName @Model.Director.Person.UserProfile.LastName</a></p>
+                        }
+                        else
+                        {
+                            <p class="title is-6"><a asp-area="" asp-controller="SchoolWorker" asp-action="SchoolWorkerPublicAccount" asp-route-schoolWorkerId="@Model.Director.Id">@Model.Director.Person.UserProfile.FirstName @Model.Director.Person.UserProfile.LastName</a></p>
+                        }
+                    }
+                    <p class="subtitle is-6 is-uppercase is-family-code has-text-grey">Address:</p>
+                    <p class="title is-6">@Model.GetSchool.Address</p>
+                    <p class="subtitle is-6 is-uppercase is-family-code has-text-grey">Phone Number:</p>
+                    <p class="title is-6">@Model.GetSchool.PhoneNumber</p>
+                    <div class="columns">
+                        <div class="column has-text-centered">
+                            <a class="subtitle is-5 is-family-code has-text-link m-0 has-text-weight-bold pb-1" asp-area="" asp-controller="Student" asp-action="GetStudents" asp-route-schoolId="@Model.GetSchool.Id">Students</a>
+                        </div>
+                        <div class="column has-text-centered">
+                            <a class="subtitle is-5 is-family-code has-text-link m-0 has-text-weight-bold pb-1 " asp-area="" asp-controller="SchoolWorker" asp-action="SchoolWorkersList" asp-route-schoolId="@Model.GetSchool.Id">Workers</a>
+                        </div>
+                        <div class="column has-text-centered">
+                            <a class="subtitle is-5 is-family-code has-text-link m-0 has-text-weight-bold pb-1" asp-area="" asp-controller="SchoolClass" asp-action="SchoolClassesList" asp-route-schoolId="@Model.GetSchool.Id">Classes</a>
+                        </div>
+                    </div><footer class="card-footer mb-0 pb-0">
+                        @*@if (User.IsInRole("Director") || User.IsInRole("Manager"))
+            {
+
+                <a href="#" class="card-footer-item">Edit School</a>
+            }*@
+                    </footer>
+
+                </div>
+            </div>
+        </div>
+        @*<div class="column">
+                <div class="card">
+                    <div class="card-content">
+                        <section>
+                            <p class="subtitle is-6 is-uppercase is-family-code has-text-grey pb-0 mb-0">Schools:</p>
+                            @{
+
+                                foreach (School school in Model.Schools)
+                                {
+                                    @await Html.PartialAsync("_SchoolCard", school);
+                                }
+
+                            }
+                        </section>
+                        <section>
+                            <p class="subtitle is-6 is-uppercase is-family-code has-text-grey pb-0 mb-0 mt-2">School Classes:</p>
+                            @{
+                                foreach (SchoolClassStudent schoolClassStudent in Model.Student.SchoolClassStudents)
+                                {
+                                    @await Html.PartialAsync("_SchoolClassCard", schoolClassStudent);
+                                }
+                            }
+                        </section>
+                        <section>
+                            <p class="subtitle is-6 is-uppercase is-family-code has-text-grey pb-0 mb-0 mt-2">Parent:</p>
+                            <a class="title is-6 mt-0 pt-0">@Model.Student.Parent.UserProfile.FirstName @Model.Student.Parent.UserProfile.LastName</a>
+                        </section>
+                        <section>
+                            <p class="subtitle is-6 is-uppercase is-family-code has-text-grey pb-0 mb-0 mt-2">Siblings:</p>
+                            @{
+                                foreach (Student student in Model.Student.Siblings)
+                                {
+                                    @await Html.PartialAsync("_StudentCard", student);
+                                }
+                            }
+                        </section>
+
+                    </div>
+
+                </div>
+            </div>*@
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,137 @@
+﻿@{
+    Layout = "_Layout";
+}
+@{
+    ViewData["Title"] = "StudentPublicAccount";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Student Public Account</title>
+</head>
+<body>
+    <div class="columns">
+        <div class="column is-one-third">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        @Model.GetStudent.Person.UserProfile.FirstName @Model.GetStudent.Person.UserProfile.MiddleName @Model.GetStudent.Person.UserProfile.LastName
+                    </p>
+                </header>
+                <div class="card-image pt-3 pl-3 pr-3">
+                    <figure class="image ">
+                        <img src="@Model.GetStudent.Person.UserProfile.Image" class="" alt="Placeholder image">
+                    </figure>
+                </div>
+                <div class="card-content m-0 pb-1">
+                    <p class="subtitle is-5 is-family-code has-text-link m-0 has-text-weight-bold pb-1">Student</p>
+                    @{
+                        if (User.IsInRole("Director") || User.IsInRole("Manager"))
+                        {
+                            <p class="subtitle is-6 is-uppercase is-family-code has-text-grey">Email:</p>
+                            <p class="title is-6">@Model.GetStudent.Person.UserProfile.User.Email</p>
+                            <p class="subtitle is-6 is-uppercase is-family-code has-text-grey">Phone Number:</p>
+                            <p class="title is-6">@Model.GetStudent.Person.UserProfile.User.PhoneNumber</p>
+                        }
+                    }
+
+                    <p class="subtitle is-6 is-uppercase is-family-code has-text-grey">Gender:</p>
+                    <p class="title is-6">@Model.GetStudent.Person.UserProfile.Gender</p>
+                    <p class="subtitle is-6 is-uppercase is-family-code has-text-grey">Birth Date:</p>
+                    <p class="title is-6">@Model.GetStudent.Person.UserProfile.BirthDate.ToShortDateString()</p>
+                    @{
+                        if (User.IsInRole("Director") || User.IsInRole("Manager"))
+                        {
+                            <footer class="card-footer mb-0 pb-0">
+                                <a href="#" class="card-footer-item">Edit Connections</a>
+                            </footer>
+                        }
+                        else
+                        {
+                            <footer class="card-footer mb-0 pb-0">
+                            </footer>
+                        }
+                    }
+
+
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card">
+                <div class="card-content">
+                    <section>
+                        <p class="subtitle is-6 is-uppercase is-family-code has-text-grey pb-0 mb-0">Schools:</p>
+                        @{
+                            if (Model.GetStudent.SchoolStudents.Count == 0)
+                            {
+                                <p class="title is-6 is-uppercase is-family-code has-text-grey pb-0 mb-0 mt-2 is-italic">No schools connected</p>
+                            }
+                            else
+                            {
+                                foreach (SchoolStudent school in Model.GetStudent.SchoolStudents)
+                                {
+                                    @await Html.PartialAsync("_SchoolCard", school.School);
+                                }
+                            }
+
+
+                        }
+                    </section>
+                    <section>
+                        <p class="subtitle is-6 is-uppercase is-family-code has-text-grey pb-0 mb-0 mt-2">School Classes:</p>
+                        @{
+                            if (Model.GetStudent.SchoolClassStudents.Count == 0)
+                            {
+                                <p class="title is-6 is-uppercase is-family-code has-text-grey pb-0 mb-0 mt-2 is-italic">No classes connected</p>
+                            }
+                            else
+                            {
+                                foreach (SchoolClassStudent schoolClassStudent in Model.GetStudent.SchoolClassStudents)
+                                {
+                                    @await Html.PartialAsync("_SchoolClassCard", schoolClassStudent);
+                                }
+                            }
+
+                        }
+                    </section>
+                    <section>
+                        <p class="subtitle is-6 is-uppercase is-family-code has-text-grey pb-0 mb-0 mt-2">Parent:</p>
+                        @{
+                            if (Model.GetStudent.Parent == null || Model.GetStudent.Parent.UserProfile == null)
+                            {
+                                <p class="title is-6 is-uppercase is-family-code has-text-grey pb-0 mb-0 mt-2 is-italic">No parent connected</p>
+                            }
+                            else
+                            {
+                                <a asp-area="" asp-controller="Parent" asp-action="ParentPublicAccount" asp-route-parentId="@Model.GetStudent.Parent.Id" class="title is-6 mt-0 pt-0">@Model.GetStudent.Parent.UserProfile.FirstName @Model.GetStudent.Parent.UserProfile.LastName</a>
+                            }
+                        }
+                    </section>
+                    <section>
+                        <p class="subtitle is-6 is-uppercase is-family-code has-text-grey pb-0 mb-0 mt-2">Siblings:</p>
+                        @{
+                            if (Model.GetStudent.Siblings.Count == 0)
+                            {
+                                <p class="title is-6 is-uppercase is-family-code has-text-grey pb-0 mb-0 mt-2 is-italic">No siblings connected</p>
+                            }
+                            else
+                            {
+                                foreach (Student student in Model.GetStudent.Siblings)
+                                {
+                                    @await Html.PartialAsync("_StudentCard", student);
+                                }
+                            }
+
+                        }
+                    </section>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

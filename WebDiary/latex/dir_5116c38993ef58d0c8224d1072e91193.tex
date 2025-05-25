@@ -1,0 +1,132 @@
+\doxysection{node\+\_\+modules/vue/dist Directory Reference}
+\hypertarget{dir_5116c38993ef58d0c8224d1072e91193}{}\label{dir_5116c38993ef58d0c8224d1072e91193}\index{node\_modules/vue/dist Directory Reference@{node\_modules/vue/dist Directory Reference}}
+Directory dependency graph for dist\+:
+% FIG 0
+
+
+\doxysubsection{Detailed Description}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ UMD   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Common\+JS   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ES Module    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ UMD   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Common\+JS   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ES Module    }\\\cline{1-4}
+\endhead
+{\bfseries{Full}}   &vue.\+js   &vue.\+common.\+js   &vue.\+esm.\+js    \\\cline{1-4}
+{\bfseries{Runtime-\/only}}   &vue.\+runtime.\+js   &vue.\+runtime.\+common.\+js   &vue.\+runtime.\+esm.\+js    \\\cline{1-4}
+{\bfseries{Full (production)}}   &vue.\+min.\+js   &&\\\cline{1-4}
+{\bfseries{Runtime-\/only (production)}}   &vue.\+runtime.\+min.\+js   &&\\\cline{1-4}
+\end{longtabu}
+\hypertarget{README.md_autotoc_md57}{}\doxysubsubsection{\texorpdfstring{Terms}{Terms}}\label{README.md_autotoc_md57}
+
+\begin{DoxyItemize}
+\item {\bfseries{Full}}\+: builds that contain both the compiler and the runtime.
+\item {\bfseries{Compiler}}\+: code that is responsible for compiling template strings into Java\+Script render functions.
+\item {\bfseries{Runtime}}\+: code that is responsible for creating Vue instances, rendering and patching virtual DOM, etc. Basically everything minus the compiler.
+\item {\bfseries{\href{https://github.com/umdjs/umd}{\texttt{ UMD}}}}\+: UMD builds can be used directly in the browser via a {\ttfamily \texorpdfstring{$<$}{<}script\texorpdfstring{$>$}{>}} tag. The default file from Unpkg CDN at \href{https://unpkg.com/vue}{\texttt{ https\+://unpkg.\+com/vue}} is the Runtime + Compiler UMD build ({\ttfamily vue.\+js}).
+\item {\bfseries{\href{http://wiki.commonjs.org/wiki/Modules/1.1}{\texttt{ Common\+JS}}}}\+: Common\+JS builds are intended for use with older bundlers like \href{http://browserify.org/}{\texttt{ browserify}} or \href{https://webpack.github.io}{\texttt{ webpack 1}}. The default file for these bundlers ({\ttfamily pkg.\+main}) is the Runtime only Common\+JS build ({\ttfamily vue.\+runtime.\+common.\+js}).
+\item {\bfseries{\href{http://exploringjs.com/es6/ch_modules.html}{\texttt{ ES Module}}}}\+: ES module builds are intended for use with modern bundlers like \href{https://webpack.js.org}{\texttt{ webpack 2}} or \href{http://rollupjs.org/}{\texttt{ rollup}}. The default file for these bundlers ({\ttfamily pkg.\+module}) is the Runtime only ES Module build ({\ttfamily vue.\+runtime.\+esm.\+js}).
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md58}{}\doxysubsubsection{\texorpdfstring{Runtime + Compiler vs. Runtime-\/only}{Runtime + Compiler vs. Runtime-\/only}}\label{README.md_autotoc_md58}
+If you need to compile templates on the fly (e.\+g. passing a string to the {\ttfamily template} option, or mounting to an element using its in-\/\+DOM HTML as the template), you will need the compiler and thus the full build.
+
+When using {\ttfamily vue-\/loader} or {\ttfamily vueify}, templates inside {\ttfamily \texorpdfstring{$\ast$}{*}.vue} files are compiled into Java\+Script at build time. You don\textquotesingle{}t really need the compiler in the final bundle, and can therefore, use the runtime-\/only build.
+
+Since the runtime-\/only builds are roughly 30\% lighter-\/weight than their full-\/build counterparts, you should use it whenever you can. If you wish to use the full build instead, you need to configure an alias in your bundler.\hypertarget{README.md_autotoc_md59}{}\doxysubsubsubsection{\texorpdfstring{Webpack}{Webpack}}\label{README.md_autotoc_md59}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ js}
+\DoxyCodeLine{module.exports\ =\ \{}
+\DoxyCodeLine{\ \ //\ ...}
+\DoxyCodeLine{\ \ resolve:\ \{}
+\DoxyCodeLine{\ \ \ \ alias:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ 'vue\$':\ 'vue/dist/vue.esm.js'\ //\ 'vue/dist/vue.common.js'\ for\ webpack\ 1}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md60}{}\doxysubsubsubsection{\texorpdfstring{Rollup}{Rollup}}\label{README.md_autotoc_md60}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ js}
+\DoxyCodeLine{const\ alias\ =\ require('rollup-\/plugin-\/alias')}
+\DoxyCodeLine{}
+\DoxyCodeLine{rollup(\{}
+\DoxyCodeLine{\ \ //\ ...}
+\DoxyCodeLine{\ \ plugins:\ [}
+\DoxyCodeLine{\ \ \ \ alias(\{}
+\DoxyCodeLine{\ \ \ \ \ \ 'vue':\ 'vue/dist/vue.esm.js'}
+\DoxyCodeLine{\ \ \ \ \})}
+\DoxyCodeLine{\ \ ]}
+\DoxyCodeLine{\})}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md61}{}\doxysubsubsubsection{\texorpdfstring{Browserify}{Browserify}}\label{README.md_autotoc_md61}
+Add to your project\textquotesingle{}s {\ttfamily package.\+json}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ js}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ //\ ...}
+\DoxyCodeLine{\ \ "{}browser"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ "{}vue"{}:\ "{}vue/dist/vue.common.js"{}}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md62}{}\doxysubsubsection{\texorpdfstring{Development vs. Production Mode}{Development vs. Production Mode}}\label{README.md_autotoc_md62}
+Development/production modes are hard-\/coded for the UMD builds\+: the un-\/minified files are for development, and the minified files are for production.
+
+Common\+JS and ES Module builds are intended for bundlers, therefore we don\textquotesingle{}t provide minified versions for them. You will be responsible for minifying the final bundle yourself.
+
+Common\+JS and ES Module builds also preserve raw checks for {\ttfamily process.\+env.\+NODE\+\_\+\+ENV} to determine the mode they should run in. You should use appropriate bundler configurations to replace these environment variables in order to control which mode Vue will run in. Replacing {\ttfamily process.\+env.\+NODE\+\_\+\+ENV} with string literals also allows minifiers like Uglify\+JS to completely drop the development-\/only code blocks, reducing final file size.\hypertarget{README.md_autotoc_md63}{}\doxysubsubsubsection{\texorpdfstring{Webpack}{Webpack}}\label{README.md_autotoc_md63}
+Use Webpack\textquotesingle{}s \href{https://webpack.js.org/plugins/define-plugin/}{\texttt{ Define\+Plugin}}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ js}
+\DoxyCodeLine{var\ webpack\ =\ require('webpack')}
+\DoxyCodeLine{}
+\DoxyCodeLine{module.exports\ =\ \{}
+\DoxyCodeLine{\ \ //\ ...}
+\DoxyCodeLine{\ \ plugins:\ [}
+\DoxyCodeLine{\ \ \ \ //\ ...}
+\DoxyCodeLine{\ \ \ \ new\ webpack.DefinePlugin(\{}
+\DoxyCodeLine{\ \ \ \ \ \ 'process.env.NODE\_ENV':\ JSON.stringify('production')}
+\DoxyCodeLine{\ \ \ \ \})}
+\DoxyCodeLine{\ \ ]}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md64}{}\doxysubsubsubsection{\texorpdfstring{Rollup}{Rollup}}\label{README.md_autotoc_md64}
+Use \href{https://github.com/rollup/rollup-plugin-replace}{\texttt{ rollup-\/plugin-\/replace}}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ js}
+\DoxyCodeLine{const\ replace\ =\ require('rollup-\/plugin-\/replace')}
+\DoxyCodeLine{}
+\DoxyCodeLine{rollup(\{}
+\DoxyCodeLine{\ \ //\ ...}
+\DoxyCodeLine{\ \ plugins:\ [}
+\DoxyCodeLine{\ \ \ \ replace(\{}
+\DoxyCodeLine{\ \ \ \ \ \ 'process.env.NODE\_ENV':\ JSON.stringify('production')}
+\DoxyCodeLine{\ \ \ \ \})}
+\DoxyCodeLine{\ \ ]}
+\DoxyCodeLine{\}).then(...)}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md65}{}\doxysubsubsubsection{\texorpdfstring{Browserify}{Browserify}}\label{README.md_autotoc_md65}
+Apply a global \href{https://github.com/hughsk/envify}{\texttt{ envify}} transform to your bundle.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ bash}
+\DoxyCodeLine{NODE\_ENV=production\ browserify\ -\/g\ envify\ -\/e\ main.js\ |\ uglifyjs\ -\/c\ -\/m\ >\ build.js}
+
+\end{DoxyCode}
+ 

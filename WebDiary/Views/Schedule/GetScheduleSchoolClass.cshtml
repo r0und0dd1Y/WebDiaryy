@@ -1,0 +1,343 @@
+﻿@model WebDiary.Data.ViewModels.ScheduleViewModel
+@{
+    Layout = "_Layout";
+}
+@{
+    ViewData["Title"] = "GetScheduleSchoolClass";
+}
+
+<nav class="panel is-info">
+    <p class="title is-5 panel-heading  mb-0">@Model.SchoolClass.Name <span class="has-text-weight-light is-uppercase is-family-code  mt-1">  / Schedule </span></p>
+</nav>
+
+<div class="columns">
+    <div class="column" name="monday">
+        <nav class="panel">
+            <p class="title panel-heading  mb-0"> <span class="has-text-weight-light is-uppercase is-family-code has-text-grey mt-1">Monday </span></p>
+            <div class="panel-body">
+                <table class="table is-hoverable is-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">
+                                    Time
+                                </p>
+                            </th>
+                            <th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">
+                                    Subject
+                                </p>
+                            </th>
+                            <th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">
+                                    Cabinet
+                                </p>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var lesson in Model.GetSchedule.Lessons)
+                            {
+                                if (lesson.WeekDay == 1)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => lesson.Time.ToShortTimeString())</td>
+                                        <td><a asp-area="" asp-controller="Subject" asp-action="GetSubject" asp-route-subjectId="@lesson.Subject.Id">@Html.DisplayFor(modelItem => lesson.Subject.Name)</a></td>
+                                        <td>@Html.DisplayFor(modelItem => lesson.Cabinet)</td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </nav>
+    </div>
+    <div class="column" name="tuesday">
+        <nav class="panel">
+            <p class="title panel-heading  mb-0"> <span class="has-text-weight-light is-uppercase is-family-code has-text-grey mt-1">Tuesday </span></p>
+            <div class="panel-body">
+                <table class="table is-hoverable is-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">
+                                    Time
+                                </p>
+                            </th>
+                            <th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">
+                                    Subject
+                                </p>
+                            </th>
+                            <th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">
+                                    Cabinet
+                                </p>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var lesson in Model.GetSchedule.Lessons)
+                            {
+                                if (lesson.WeekDay == 2)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => lesson.Time)</td>
+                                        <td>
+                                            <a asp-area="" asp-controller="Subject" asp-action="GetSubject" asp-route-subjectId="@lesson.Subject.Id">
+                                                @Html.DisplayFor(modelItem => lesson.Subject.Name)
+                                            </a>
+                                        </td>
+                                        <td>@Html.DisplayFor(modelItem => lesson.Cabinet)</td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </nav>
+    </div>
+    <div class="column" name="wednesday">
+        <nav class="panel">
+            <p class="title panel-heading  mb-0"> <span class="has-text-weight-light is-uppercase is-family-code has-text-grey mt-1">Wednesday </span></p>
+            <div class="panel-body">
+                <table class="table is-hoverable is-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">
+                                    Time
+                                </p>
+                            </th>
+                            <th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">
+                                    Subject
+                                </p>
+                            </th>
+                            <th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">
+                                    Cabinet
+                                </p>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var lesson in Model.GetSchedule.Lessons)
+                            {
+                                if (lesson.WeekDay == 3)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => lesson.Time)</td>
+                                        <td>
+                                            <a asp-area="" asp-controller="Subject" asp-action="GetSubject" asp-route-subjectId="@lesson.Subject.Id">
+                                                @Html.DisplayFor(modelItem => lesson.Subject.Name)
+                                            </a>
+                                        </td>
+                                        <td>@Html.DisplayFor(modelItem => lesson.Cabinet)</td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </nav>
+    </div>
+    <div class="column" name="thursday">
+        <nav class="panel">
+            <p class="title panel-heading  mb-0"> <span class="has-text-weight-light is-uppercase is-family-code has-text-grey mt-1">Thursday </span></p>
+            <div class="panel-body">
+                <table class="table is-hoverable is-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">
+                                    Time
+                                </p>
+                            </th>
+                            <th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">
+                                    Subject
+                                </p>
+                            </th>
+                            <th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">
+                                    Cabinet
+                                </p>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var lesson in Model.GetSchedule.Lessons)
+                            {
+                                if (lesson.WeekDay == 4)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => lesson.Time)</td>
+                                        <td>
+                                            <a asp-area="" asp-controller="Subject" asp-action="GetSubject" asp-route-subjectId="@lesson.Subject.Id">
+                                                @Html.DisplayFor(modelItem => lesson.Subject.Name)
+                                            </a>
+                                        </td>
+                                        <td>@Html.DisplayFor(modelItem => lesson.Cabinet)</td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </nav>
+    </div>
+</div>
+<div class="columns">
+    <div class="column is-one-quarter" name="friday">
+        <nav class="panel">
+            <p class="title panel-heading  mb-0"> <span class="has-text-weight-light is-uppercase is-family-code has-text-grey mt-1">Friday </span></p>
+            <div class="panel-body">
+                <table class="table is-hoverable is-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">
+                                    Time
+                                </p>
+                            </th>
+                            <th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">
+                                    Subject
+                                </p>
+                            </th>
+                            <th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">
+                                    Cabinet
+                                </p>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var lesson in Model.GetSchedule.Lessons)
+                            {
+                                if (lesson.WeekDay == 5)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => lesson.Time)</td>
+                                        <td>
+                                            <a asp-area="" asp-controller="Subject" asp-action="GetSubject" asp-route-subjectId="@lesson.Subject.Id">
+                                                @Html.DisplayFor(modelItem => lesson.Subject.Name)
+                                            </a>
+                                        </td>
+                                        <td>@Html.DisplayFor(modelItem => lesson.Cabinet)</td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </nav>
+    </div>
+    <div class="column is-one-quarter" name="saturday">
+        <nav class="panel">
+            <p class="title panel-heading  mb-0"> <span class="has-text-weight-light is-uppercase is-family-code has-text-grey mt-1">Saturday </span></p>
+            <div class="panel-body">
+                <table class="table is-hoverable is-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">
+                                    Time
+                                </p>
+                            </th>
+                            <th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">
+                                    Subject
+                                </p>
+                            </th>
+                            <th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">
+                                    Cabinet
+                                </p>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var lesson in Model.GetSchedule.Lessons)
+                            {
+                                if (lesson.WeekDay == 6)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => lesson.Time)</td>
+                                        <td>
+                                            <a asp-area="" asp-controller="Subject" asp-action="GetSubject" asp-route-subjectId="@lesson.Subject.Id">
+                                                @Html.DisplayFor(modelItem => lesson.Subject.Name)
+                                            </a>
+                                        </td>
+                                        <td>@Html.DisplayFor(modelItem => lesson.Cabinet)</td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </nav>
+    </div>
+    <div class="column is-one-quarter" name="sunday">
+        <nav class="panel">
+            <p class="title panel-heading  mb-0"> <span class="has-text-weight-light is-uppercase is-family-code has-text-grey mt-1">Sunday </span></p>
+            <div class="panel-body">
+                <table class="table is-hoverable is-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">
+                                    Time
+                                </p>
+                            </th>
+                            <th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">
+                                    Subject
+                                </p>
+                            </th>
+                            <th>
+                                <p class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">
+                                    Cabinet
+                                </p>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var lesson in Model.GetSchedule.Lessons)
+                            {
+                                if (lesson.WeekDay == 7)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => lesson.Time)</td>
+                                        <td>
+                                            <a asp-area="" asp-controller="Subject" asp-action="GetSubject" asp-route-subjectId="@lesson.Subject.Id">
+                                                @Html.DisplayFor(modelItem => lesson.Subject.Name)
+                                            </a>
+                                        </td>
+                                        <td>@Html.DisplayFor(modelItem => lesson.Cabinet)</td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </nav>
+    </div>
+</div>
+
+

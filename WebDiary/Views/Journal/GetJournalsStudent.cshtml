@@ -1,0 +1,122 @@
+﻿@model WebDiary.Data.ViewModels.ListJournalsStudentViewModel
+@{
+    Layout = "_Layout";
+
+}
+
+@{
+    ViewData["Title"] = "GetJournalsStudent";
+}
+
+<div class="panel">
+    @{
+        <p class="title is-5 panel-heading  mb-0">@Model.Student.Person.UserProfile.FirstName @Model.Student.Person.UserProfile.LastName<span class="has-text-weight-light is-uppercase is-family-code has-text-grey mt-1">  / Journal </span></p>
+    }
+</div>
+@{
+    foreach (var journal in Model.ListJournalsViewModels)
+    {
+        <div class="block">
+            <nav class="panel is-info">
+                <p class="title is-5 panel-heading  mb-0"> @journal.SchoolClass.Name<span class="has-text-weight-light is-uppercase is-family-code  mt-1"></span></p>
+                <div class="panel-body">
+                    <div class="table-container" style="width:1000px">
+                        <table class="table is-hoverable table is-bordered">
+                            <thead>
+                                <tr class="p-0">
+                                    @{
+                                        <th class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold p-1 pt-2" style="white-space:nowrap;">Subject</th>
+                                        var dayDiff = ((journal.SchoolClass.FinalDate) - (journal.SchoolClass.CreateDate)).Days;
+                                        for (int i = 0; i < dayDiff; i++)
+                                        {
+                                            DateTime date = journal.SchoolClass.CreateDate.AddDays(i);
+                                            <th class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold p-1 pt-2" style="white-space:nowrap;">@date.ToString("dd/MM")</th>
+                                        }
+                                        <th class="is-small is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">Semester 1</th>
+                                        <th class="is-small is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">Semester 2</th>
+                                        <th class="is-small is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">Final</th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var item in journal.JournalViewModels)
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(modelItem => item.GetJournal.Subject.Name)</td>
+                                            @{
+
+                                                for (int i = 0; i < dayDiff; i++)
+                                                {
+                                                    DateTime date = journal.SchoolClass.CreateDate.AddDays(i);
+                                                    foreach (var m in item.MarksFilter)
+                                                    {
+                                                        if (m.TimeSet.ToShortDateString() == date.ToShortDateString() && m.MarkType == MarkType.Current)
+                                                        {
+
+                                                            if (!string.IsNullOrEmpty(m.Description))
+                                                            {
+                                                                <td title="@m.Description">@m.Value</td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td >@m.Value</td>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <td></td>
+                                                        }
+                                                    }
+
+                                                }
+
+                                                <td >
+                                                    @{ foreach (var m in item.MarksFilter)
+                                                        {
+                                                            if (m.MarkType == MarkType.Semester1)
+                                                            {
+                                                                <span>@m.Value</span>
+
+                                                            }
+                                                        }
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @{ foreach (var m in item.MarksFilter)
+                                                        {
+                                                            if (m.MarkType == MarkType.Semester2)
+                                                            {
+                                                                <span>@m.Value</span>
+
+                                                            }
+                                                        }
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @{ foreach (var m in item.MarksFilter)
+                                                        {
+                                                            if (m.MarkType == MarkType.Final)
+                                                            {
+                                                                <span>@m.Value</span>
+
+                                                            }
+                                                        }
+                                                    }
+                                                </td>
+
+                                            }
+                                        </tr>
+
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </nav>
+
+        </div>
+
+    }
+}

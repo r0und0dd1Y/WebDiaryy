@@ -1,0 +1,105 @@
+﻿@model WebDiary.Data.ViewModels.LoginViewModel
+
+
+<style>
+    .main-flex {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 70vh;
+        width:100vw;
+    }
+</style>
+
+
+<div class="main-flex ">
+    <div class="panel" style="width: 30rem;border-radius:20px">
+        <h5 class="panel-heading" @*style="font-family:sans-serif;"*@>Log In</h5>
+        <div class="panel-block is-justify-content-center mt-5 mb-6">
+            <form method="post" id="loginForm" asp-controller="Account" asp-action="Login">
+                
+                <div class="field">
+                    <div class="form-group">
+                        @*<label></label><br />*@
+                        <p class="control has-icons-left">
+                            <input asp-for="Email" class="input form-control" id="register-email" placeholder="Email" required>
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+
+                        </p>
+
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="form-group">
+                        @*<label></label><br />*@
+                        <p class="control has-icons-left">
+                            <input asp-for="Password" id="register-password" type="password" value="" placeholder="Password" class="input form-control" required>
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div asp-validation-summary="All" class="has-text-danger has-text-weight-semibold	"></div>
+                <button type="submit" class="button is-info" style="margin-top:5px">Submit</button>
+                <a type="button" class="button" style="margin:5px" asp-area="" asp-controller="Account" asp-action="ForgotPassword">Forgot password?</a>
+            </form>
+        </div>
+
+    </div>
+</div>
+@*<script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.0/dist/bootstrap-validate.js"></script>*@
+@*<script>
+        bootstrapValidate('#register-email', 'email:Enter a valid E-Mail Address!');
+        bootstrapValidate('#register-name', 'alpha:You can use only latin letters.');
+        bootstrapValidate('#register-middlename', 'alpha:You can use only latin letters.');
+        bootstrapValidate('#register-lastname', 'alpha:You can use only latin letters.');
+        bootstrapValidate('#register-password', 'min:6:Enter at least 6 characters.');
+
+    </script>*@
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.3/es6-shim.min.js"></script>
+<script src="/vendors/formvalidation/dist/js/FormValidation.min.js"></script>
+<script src="/vendors/formvalidation/dist/js/plugins/Bulma.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function (e) {
+        FormValidation.formValidation(
+            document.getElementById('loginForm'),
+            {
+                fields: {
+                    registeremail: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Email is required'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-Z0-9_]+$/,
+                                message: 'Enter a valid email address'
+                            }
+                        }
+                    },
+                    registerpassword: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Password is required'
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    trigger: new FormValidation.plugins.Trigger(),
+                    bulma: new FormValidation.plugins.Bulma(),
+                    submitButton: new FormValidation.plugins.SubmitButton(),
+                    icon: new FormValidation.plugins.Icon({
+                        valid: 'fa fa-check',
+                        invalid: 'fa fa-times',
+                        validating: 'fa fa-refresh'
+                    }),
+                },
+            }
+        );
+    });
+</script>

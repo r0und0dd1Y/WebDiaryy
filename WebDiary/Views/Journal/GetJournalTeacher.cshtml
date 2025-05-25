@@ -1,0 +1,130 @@
+﻿@model WebDiary.Data.ViewModels.ListJournalViewModel
+@{
+    Layout = "_Layout";
+
+}
+
+@{
+    ViewData["Title"] = "GetJournalTeacher";
+}
+
+<div class="panel">
+    @{
+        <p class="title is-5 panel-heading  mb-0">@Model.SchoolWorker.Person.UserProfile.FirstName @Model.SchoolWorker.Person.UserProfile.LastName<span class="has-text-weight-light is-uppercase is-family-code has-text-grey mt-1">  / Journal </span></p>
+    }
+</div>
+@{
+    if (Model.JournalViewModels.Count == 0)
+    {
+        <p class="title is-5 panel-heading  mb-0"><span class="has-text-weight-light is-uppercase is-family-code has-text-grey mt-1">No journals connected.</span></p>
+    }
+    else
+    {
+        foreach (var journal in Model.JournalViewModels)
+        {
+            <div class="block">
+                <nav class="panel is-info">
+                    <p class="title is-5 panel-heading  mb-0"> @journal.GetJournal.Subject.Name<span class="has-text-weight-light is-uppercase is-family-code  mt-1"></span></p>
+                    <div class="panel-body">
+                        <div class="table-container" style="width:1000px">
+                            <table class="table is-hoverable table is-bordered">
+                                <thead>
+                                    <tr class="p-0">
+                                        @{
+                                            <th class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold p-1 pt-2" style="white-space:nowrap;">Student</th>
+                                            var dayDiff = ((journal.GetJournal.Subject.SchoolClass.FinalDate) - (journal.GetJournal.Subject.SchoolClass.CreateDate)).Days;
+                                            for (int i = 0; i < dayDiff; i++)
+                                            {
+                                                DateTime date = journal.GetJournal.Subject.SchoolClass.CreateDate.AddDays(i);
+                                                <th class="subtitle is-6 is-uppercase is-family-code has-text-black has-text-weight-bold p-1 pt-2" style="white-space:nowrap;">@date.ToString("dd/MM")</th>
+                                            }
+                                            <th class="is-small is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">Semester 1</th>
+                                            <th class="is-small is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">Semester 2</th>
+                                            <th class="is-small is-uppercase is-family-code has-text-black has-text-weight-bold" style="white-space:nowrap;">Final</th>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        foreach (var item in journal.GetJournal.Subject.StudentSubjects)
+                                        {
+                                            <tr>
+                                                <td>@Html.DisplayFor(modelItem => item.Student.Person.UserProfile.FirstName) @Html.DisplayFor(modelItem => item.Student.Person.UserProfile.LastName)</td>
+                                                @{
+
+                                                    for (int i = 0; i < dayDiff; i++)
+                                                    {
+                                                        DateTime date = journal.GetJournal.Subject.SchoolClass.CreateDate.AddDays(i);
+                                                        <td>
+                                                            @foreach (var m in journal.MarksFilter)
+                                                            {
+                                                                if (m.TimeSet.ToShortDateString() == date.ToShortDateString() && m.MarkType == MarkType.Current && m.Student.Id == item.Student.Id)
+                                                                {
+
+                                                                    if (!string.IsNullOrEmpty(m.Description))
+                                                                    {
+                                                                        <span title="@m.Description">@m.Value</span>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <span>@m.Value</span>
+                                                                    }
+                                                                }
+
+                                                            }
+
+                                                        </td>
+
+                                                    }
+
+                                                    <td>
+                                                        @{ foreach (var m in journal.GetJournal.Marks)
+                                                            {
+                                                                if (m.MarkType == MarkType.Semester1 && m.Student.Id == item.Student.Id)
+                                                                {
+                                                                    <span>@m.Value</span>
+
+                                                                }
+                                                            }
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @{ foreach (var m in journal.GetJournal.Marks)
+                                                            {
+                                                                if (m.MarkType == MarkType.Semester2 && m.Student.Id == item.Student.Id)
+                                                                {
+                                                                    <span>@m.Value</span>
+
+                                                                }
+                                                            }
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @{ foreach (var m in journal.GetJournal.Marks)
+                                                            {
+                                                                if (m.MarkType == MarkType.Final && m.Student.Id == item.Student.Id)
+                                                                {
+                                                                    <span>@m.Value</span>
+
+                                                                }
+                                                            }
+                                                        }
+                                                    </td>
+
+                                                }
+                                            </tr>
+
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </nav>
+
+            </div>
+
+        }
+    }
+
+}

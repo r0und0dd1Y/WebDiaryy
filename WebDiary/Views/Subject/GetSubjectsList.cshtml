@@ -1,0 +1,51 @@
+﻿@model WebDiary.Data.ViewModels.ListSubjectViewModel
+@{
+    Layout = "_Layout";
+}
+@{
+    ViewData["Title"] = "ListSubject";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    
+</head>
+<body>
+    <div class="panel">
+        @{
+            if (Model.SchoolClass != null)
+            {
+                <p class="title is-5 panel-heading">@Model.SchoolClass.Name <span class="has-text-weight-light is-uppercase is-family-code has-text-grey mt-1"> / Subjects </span></p>
+            }
+            else if (Model.SchoolWorker != null)
+            {
+                <p class="title is-5 panel-heading">@Model.SchoolWorker.Person.UserProfile.FirstName @Model.SchoolWorker.Person.UserProfile.LastName<span class="has-text-weight-light is-uppercase is-family-code has-text-grey mt-1"> / Subjects </p>
+
+            }
+
+        }
+    </div>
+    @{
+        foreach (var subject in Model.GetSubjects)
+        {
+            <div class="block">
+                <div class="card p-0">
+                    <div class="card-content m-0 p-4">
+                        <p class="title is-5 pt-0 mt-0">
+                            @subject.GetSubject.Name in <a asp-area="" asp-controller="SchoolClass" asp-action="SchoolClass" asp-route-id="@subject.SchoolClass.Id">@subject.SchoolClass.Name</a>
+                        </p>
+
+                        <p class="subtitle is-6 is-uppercase is-family-code has-text-grey mt-1">Teacher:</p>
+                        <p class="title is-6"><a asp-area="" asp-controller="SchoolWorker" asp-action="SchoolWorkerPublicAccount" asp-route-schoolWorkerId="@subject.Teacher.Id">@subject.Teacher.Person.UserProfile.FirstName @subject.Teacher.Person.UserProfile.LastName </a></p>
+                        <footer class="card-footer">
+                            <a asp-area="" asp-controller="Student" asp-action="GetStudents" asp-route-subjectId="@subject.GetSubject.Id" class="button m-2">Students</a>
+                        </footer>
+                    </div>
+                </div>
+
+            </div>
+        }
+    }
+</body>
+</html>

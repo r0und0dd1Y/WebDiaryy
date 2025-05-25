@@ -1,0 +1,28 @@
+﻿@model WebDiary.Data.ViewModels.SubjectViewModel
+@{
+    Layout = "_Layout";
+
+}
+
+@{
+    ViewData["Title"] = "GetSubject";
+}
+<div class="card">
+    <header class="card-header">
+        <p class="card-header-title">
+            @Model.GetSubject.Name
+        </p>
+    </header>
+    <div class="card-content m-0 pb-1">
+        <p class="subtitle is-6 is-uppercase is-family-code has-text-grey mt-1">Teacher:</p>
+        <p class="title is-6"><a asp-area="" asp-controller="SchoolWorker" asp-action="SchoolWorkerPublicAccount" asp-route-schoolWorkerId="@Model.GetSubject.Teacher.Id">@Model.GetSubject.Teacher.Person.UserProfile.FirstName @Model.GetSubject.Teacher.Person.UserProfile.LastName </a></p>
+        <p class="subtitle is-6 is-uppercase is-family-code has-text-grey mt-1">Class:</p>
+        <p class="title is-6"><a asp-area="" asp-controller="SchoolClass" asp-action="SchoolClass" asp-route-schoolWorkerId="@Model.GetSubject.SchoolClass.Id">@Model.GetSubject.SchoolClass.Name </a></p>
+        <p class="subtitle is-6 is-uppercase is-family-code has-text-grey mt-1">Description:</p>
+        <p class="title is-6">@Model.GetSubject.Description </p>
+        <footer class="card-footer">
+            <a asp-area="" asp-controller="Student" asp-action="GetStudents" asp-route-subjectId="@Model.GetSubject.Id" class="button m-2">Students</a>
+        </footer>
+    </div>
+
+</div>

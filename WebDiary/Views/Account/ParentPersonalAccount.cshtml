@@ -1,0 +1,130 @@
+﻿@{
+    Layout = "_Layout";
+}
+@{
+    ViewData["Title"] = "ParentPersonalAccount";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Parent Personal Account</title>
+</head>
+<body>
+    <div class="columns">
+        <div class="column is-one-third">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        @Model.Parent.UserProfile.FirstName @Model.Parent.UserProfile.MiddleName @Model.Parent.UserProfile.LastName
+                    </p>
+                </header>
+                <div class="card-image pt-3 pl-3 pr-3">
+                    <figure class="image ">
+                        <img src="@Model.Parent.UserProfile.Image" class="" alt="Placeholder image">
+                    </figure>
+                </div>
+                <div class="card-content m-0 pb-1">
+                    <p class="subtitle is-5 is-family-code has-text-link m-0 has-text-weight-bold pb-1">Parent</p>
+                    <p class="subtitle is-6 is-uppercase is-family-code has-text-grey">Email:</p>
+                    <p class="title is-6">@Model.GetUserInfo.Email</p>
+                    <p class="subtitle is-6 is-uppercase is-family-code has-text-grey">Phone Number:</p>
+                    <p class="title is-6">@Model.Parent.UserProfile.User.PhoneNumber</p>
+                    <p class="subtitle is-6 is-uppercase is-family-code has-text-grey">Gender:</p>
+                    <p class="title is-6">@Model.Parent.UserProfile.Gender</p>
+                    <p class="subtitle is-6 is-uppercase is-family-code has-text-grey">Birth Date:</p>
+                    <p class="title is-6">@Model.Parent.UserProfile.BirthDate.ToShortDateString()</p>
+                    <footer class="card-footer mb-0 pb-0">
+                        <a href="#" class="card-footer-item">Edit profile</a>
+                    </footer>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card">
+                <div class="card-content">
+                    <section>
+                        <p class="subtitle is-6 is-uppercase is-family-code has-text-grey pb-0 mb-0 mt-2">Kids:</p>
+                        @{
+                            foreach (Student student in Model.Kids)
+                            {
+                                @await Html.PartialAsync("_StudentCard", student);
+                            }
+                        }
+                    </section>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+@*@{
+        Layout = "_Layout";
+    }
+    @{
+        ViewData["Title"] = "ParentPersonalAccount";
+    }
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Student Personal Account</title>
+    </head>
+    <body>
+        <div class="container">
+            <h2>@Model.Parent.UserProfile.FirstName @Model.Parent.UserProfile.MiddleName @Model.Parent.UserProfile.LastName</h2>
+            <p class="card-text">Parent </p>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <img style="height:auto; width:200px; padding-top:7px;" src="https://pmdoc.ru/wp-content/uploads/default-avatar.png" />
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="row" style="margin-bottom:5px">
+                        <div class="card w-100">
+                            <div class="card-body">
+                                <p class="card-text">Email: @Model.GetUserInfo.Email </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom:5px">
+                        <div class="card w-100">
+                            <div class="card-body">
+                                <p class="card-text">Phone Number: @Model.Parent.UserProfile.User.PhoneNumber </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom:5px">
+                        <div class="card w-100">
+                            <div class="card-body">
+                                <p class="card-text">Gender: @Model.Parent.UserProfile.Gender </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom:5px">
+                        <div class="card w-100">
+                            <div class="card-body">
+                                <h6 class="card-title">Kids</h6>
+                                @{
+                                    foreach (Student student in Model.Kids)
+                                    {
+                                        @await Html.PartialAsync("_StudentCard", student);
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>*@
